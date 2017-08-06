@@ -30,9 +30,6 @@ public class AddIndexRunnable implements Runnable {
         try (Transaction tx = db.beginTx()) {
             List<IndexInfo> indexInfoList = new IndexInfo().generateIndexInfo();
             for (Node node : td.createdNodes()) {
-//                if (node.hasLabel(Labels.Suspect)) {
-//                    suspects.add(node);
-//                GmailSender.sendEmail("maxdemarzi@gmail.com", "A new Suspect has been created in the System!", "boo-yeah");
 
                 IndexInfo infos = toBeIndexInfo(indexInfoList, node.getLabels());
 
