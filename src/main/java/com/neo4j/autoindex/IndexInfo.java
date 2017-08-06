@@ -1,8 +1,6 @@
 package com.neo4j.autoindex;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +38,13 @@ public class IndexInfo {
         FileReader fileReader;
         BufferedReader bufferedReader;
         List<IndexInfo> indexInfoList = new ArrayList<>();
+//        ClassLoader classLoader = getClass().getClassLoader();
         try{
-            fileReader = new FileReader("index.properties");
-            bufferedReader = new BufferedReader(fileReader);
+//            fileReader = new FileReader(classLoader.getResource("index.properties").getFile());
+            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classloader.getResourceAsStream("index.properties");
+            InputStreamReader inputStreamReader = new InputStreamReader(is);
+            bufferedReader = new BufferedReader(inputStreamReader);
             String line = "";
             while((line = bufferedReader.readLine()) != null){
                 String[] indexAndProp = line.split(":");

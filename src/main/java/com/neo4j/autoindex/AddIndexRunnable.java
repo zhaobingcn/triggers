@@ -32,6 +32,7 @@ public class AddIndexRunnable implements Runnable {
             for (Node node : td.createdNodes()) {
 
                 IndexInfo infos = toBeIndexInfo(indexInfoList, node.getLabels());
+                tx.acquireWriteLock(node);
 
                 Set<Map.Entry<String, Object>> properties =
                         node.getProperties(infos.getPropKeys()).entrySet();
@@ -47,13 +48,12 @@ public class AddIndexRunnable implements Runnable {
                     }
                 }
 
-//                tx.acquireWriteLock(node);
+
 //
 //                node.setProperty("age", "30");
                 System.out.println("has add property");
-                tx.success();
-
             }
+            tx.success();
         }
     }
 
